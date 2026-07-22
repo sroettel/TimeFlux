@@ -22,6 +22,7 @@ import { useTimer } from '../../hooks/useTimer';
 import { useSettings } from '../../hooks/useSettings';
 import { useStats } from '../../hooks/useStats';
 import { useThemeColors } from '../../hooks/useThemeColors';
+import { useSound } from '../../hooks/useSound';
 import { Colors, TimerPhase } from '../../utils/constants';
 
 export default function TimerScreen() {
@@ -29,6 +30,7 @@ export default function TimerScreen() {
   const { settings } = useSettings();
   const { recordSession } = useStats();
   const colors = useThemeColors();
+  const { playStartSound, playCompleteSound } = useSound();
 
   // Trigger haptic feedback (vibration) — safe to call on web too
   const triggerHaptic = useCallback(
@@ -58,12 +60,13 @@ export default function TimerScreen() {
   const handlePhaseComplete = useCallback(
     (phase: TimerPhase) => {
       triggerHaptic('success');
+      playCompleteSound();
       // Only record stats when a FOCUS session completes
       if (phase === 'focus') {
         recordSession(settings.focusMinutes);
       }
     },
-    [settings.focusMinutes, recordSession, triggerHaptic]
+    [settings.focusMinutes, recordSession, triggerHaptic, playCompleteSound]
   );
 
   // Initialize the timer with current settings
@@ -93,6 +96,7 @@ export default function TimerScreen() {
   // ─── Handlers with haptic feedback ───────────────────────────────────────
   const handleStart = () => {
     triggerHaptic('medium');
+    playStartSound();
     actions.start();
   };
 
