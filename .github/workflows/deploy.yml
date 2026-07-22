@@ -30,6 +30,10 @@ jobs:
 
       - run: touch dist/.nojekyll
 
+      - name: Inject PWA meta tags
+        run: |
+          sed -i 's|</head>|<link rel="apple-touch-icon" href="/TimeFlux/apple-touch-icon.png"/><link rel="manifest" href="/TimeFlux/manifest.json"/><meta name="apple-mobile-web-app-capable" content="yes"/><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/></head>|' dist/index.html
+
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist

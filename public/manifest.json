@@ -1,0 +1,16 @@
+{
+  "name": "TimeFlux",
+  "short_name": "TimeFlux",
+  "start_url": "/TimeFlux/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
+  "icons": [
+    {
+      "src": "/TimeFlux/apple-touch-icon.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
