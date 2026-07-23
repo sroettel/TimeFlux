@@ -17,6 +17,7 @@ import {
   DEFAULT_SHORT_BREAK_MINUTES,
   DEFAULT_LONG_BREAK_MINUTES,
   DEFAULT_CYCLES_BEFORE_LONG_BREAK,
+  ColorScheme,
 } from '../utils/constants';
 
 // The shape of our settings object
@@ -25,6 +26,7 @@ export interface AppSettings {
   shortBreakMinutes: number;
   longBreakMinutes: number;
   cyclesBeforeLongBreak: number;
+  colorScheme: ColorScheme;
   highContrast: boolean;
   reducedMotion: boolean;
 }
@@ -35,6 +37,7 @@ const DEFAULT_SETTINGS: AppSettings = {
   shortBreakMinutes: DEFAULT_SHORT_BREAK_MINUTES,
   longBreakMinutes: DEFAULT_LONG_BREAK_MINUTES,
   cyclesBeforeLongBreak: DEFAULT_CYCLES_BEFORE_LONG_BREAK,
+  colorScheme: 'dark',
   highContrast: false,
   reducedMotion: false,
 };

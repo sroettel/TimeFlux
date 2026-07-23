@@ -24,7 +24,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { SettingRow } from '../../components/SettingRow';
 import { useSettings } from '../../hooks/useSettings';
 import { useThemeColors } from '../../hooks/useThemeColors';
-import { Colors } from '../../utils/constants';
+import { Colors, ColorScheme } from '../../utils/constants';
 
 export default function SettingsScreen() {
   const { settings, updateSettings, resetSettings } = useSettings();
@@ -78,6 +78,60 @@ export default function SettingsScreen() {
           step={1}
           onChange={(v) => updateSettings({ cyclesBeforeLongBreak: v })}
         />
+
+        {/* ─── Appearance ───────────────────────────────────────────── */}
+        <Text style={[styles.sectionTitle, { marginTop: 32, color: colors.textMuted }]}>
+          Appearance
+        </Text>
+
+        <View style={[styles.schemeRow, { backgroundColor: colors.cardBackground, borderColor: colors.border }]}>
+          <View style={styles.switchLabel}>
+            <Ionicons name="color-palette" size={20} color={colors.textSecondary} />
+            <Text style={[styles.switchText, { color: colors.textPrimary }]}>Color Scheme</Text>
+          </View>
+          <View style={styles.schemeButtons}>
+            <Pressable
+              onPress={() => updateSettings({ colorScheme: 'light' })}
+              style={[
+                styles.schemeButton,
+                { borderColor: colors.border },
+                settings.colorScheme === 'light' && { backgroundColor: colors.focus, borderColor: colors.focus },
+              ]}
+              accessibilityLabel="Switch to light mode"
+              accessibilityRole="button"
+            >
+              <Ionicons
+                name="sunny"
+                size={16}
+                color={settings.colorScheme === 'light' ? colors.buttonText : colors.textSecondary}
+              />
+              <Text style={[
+                styles.schemeButtonText,
+                { color: settings.colorScheme === 'light' ? colors.buttonText : colors.textSecondary },
+              ]}>Light</Text>
+            </Pressable>
+            <Pressable
+              onPress={() => updateSettings({ colorScheme: 'dark' })}
+              style={[
+                styles.schemeButton,
+                { borderColor: colors.border },
+                settings.colorScheme === 'dark' && { backgroundColor: colors.focus, borderColor: colors.focus },
+              ]}
+              accessibilityLabel="Switch to dark mode"
+              accessibilityRole="button"
+            >
+              <Ionicons
+                name="moon"
+                size={16}
+                color={settings.colorScheme === 'dark' ? colors.buttonText : colors.textSecondary}
+              />
+              <Text style={[
+                styles.schemeButtonText,
+                { color: settings.colorScheme === 'dark' ? colors.buttonText : colors.textSecondary },
+              ]}>Dark</Text>
+            </Pressable>
+          </View>
+        </View>
 
         {/* ─── Accessibility ───────────────────────────────────────────── */}
         <Text style={[styles.sectionTitle, { marginTop: 32, color: colors.textMuted }]}>
@@ -176,6 +230,35 @@ const styles = StyleSheet.create({
   switchText: {
     fontSize: 16,
     color: Colors.textPrimary,
+  },
+  schemeRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 14,
+    paddingHorizontal: 16,
+    backgroundColor: Colors.cardBackground,
+    borderRadius: 12,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: Colors.border,
+  },
+  schemeButtons: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+  schemeButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+  },
+  schemeButtonText: {
+    fontSize: 14,
+    fontWeight: '600',
   },
   resetButton: {
     flexDirection: 'row',

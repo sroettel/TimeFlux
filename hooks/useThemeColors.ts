@@ -10,7 +10,7 @@
 
 import { useMemo } from 'react';
 import { useSettings } from './useSettings';
-import { Colors } from '../utils/constants';
+import { Colors, LightColors } from '../utils/constants';
 
 export type ThemeColors = typeof Colors;
 
@@ -18,26 +18,27 @@ export function useThemeColors(): ThemeColors {
   const { settings } = useSettings();
 
   return useMemo(() => {
-    if (!settings.highContrast) return Colors;
+    const baseColors = settings.colorScheme === 'light' ? LightColors : Colors;
+
+    if (!settings.highContrast) return baseColors;
 
     // Override key colors for better contrast.
-    // We spread the default Colors first so we keep any properties
-    // not explicitly overridden (like highContrast sub-object).
+    const hc = baseColors.highContrast;
     return {
-      ...Colors,
-      background: '#000000',
-      surface: '#1a1a1a',
-      surfaceLight: '#333333',
-      focus: '#ff4444',
-      shortBreak: '#44aaff',
-      longBreak: '#44ff88',
-      textPrimary: '#ffffff',
-      textSecondary: '#e0e0e0',
-      textMuted: '#b0b0b0',
-      cardBackground: '#1a1a1a',
-      border: '#555555',
-      danger: '#ff6b6b',
-      success: '#55ff77',
+      ...baseColors,
+      background: hc.background,
+      surface: hc.surface,
+      surfaceLight: settings.colorScheme === 'light' ? '#d0d0d0' : '#333333',
+      focus: hc.focus,
+      shortBreak: hc.shortBreak,
+      longBreak: hc.longBreak,
+      textPrimary: hc.textPrimary,
+      textSecondary: hc.textSecondary,
+      textMuted: settings.colorScheme === 'light' ? '#555555' : '#b0b0b0',
+      cardBackground: hc.surface,
+      border: settings.colorScheme === 'light' ? '#aaaaaa' : '#555555',
+      danger: settings.colorScheme === 'light' ? '#b71c1c' : '#ff6b6b',
+      success: settings.colorScheme === 'light' ? '#1b5e20' : '#55ff77',
     };
-  }, [settings.highContrast]);
+  }, [settings.highContrast, settings.colorScheme]);
 }

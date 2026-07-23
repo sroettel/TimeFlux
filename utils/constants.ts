@@ -24,6 +24,9 @@ export const PHASE_LABELS: Record<TimerPhase, string> = {
   longBreak: '🌴 Long Break',
 };
 
+// ─── Color Scheme Type ─────────────────────────────────────────────────────────
+export type ColorScheme = 'dark' | 'light';
+
 // ─── Color Theme ───────────────────────────────────────────────────────────────
 // A vibrant, accessible color palette with good contrast ratios.
 export const Colors = {
@@ -58,6 +61,37 @@ export const Colors = {
     focus: '#ff4444',
     shortBreak: '#44aaff',
     longBreak: '#44ff88',
+  },
+};
+
+// Light mode palette — softer colors for daytime use.
+export const LightColors = {
+  background: '#f5f5fa',
+  surface: '#ffffff',
+  surfaceLight: '#e8eaf6',
+
+  focus: '#d32f2f',
+  shortBreak: '#0288d1',
+  longBreak: '#2e7d32',
+
+  textPrimary: '#1a1a2e',
+  textSecondary: '#555566',
+  textMuted: '#8888a0',
+
+  cardBackground: '#ffffff',
+  border: '#dcdce6',
+  buttonText: '#ffffff',
+  danger: '#d32f2f',
+  success: '#2e7d32',
+
+  highContrast: {
+    background: '#ffffff',
+    surface: '#f0f0f0',
+    textPrimary: '#000000',
+    textSecondary: '#333333',
+    focus: '#b71c1c',
+    shortBreak: '#01579b',
+    longBreak: '#1b5e20',
   },
 };
 
